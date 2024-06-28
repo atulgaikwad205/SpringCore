@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+   <!-- Standalone Collections List -->
+    <util:list list-class="java.util.LinkedList" id="myfriendlist">
+        <value>tushar</value>
+        <value>Ayush</value>
+        <value>Atul</value>
+        <value>Rushikesh</value>
+    </util:list>
+
+    <!-- Standalone Collections Map -->
+    <util:map map-class="java.util.HashMap" id="fees">
+        <entry key="java" value="2000"/>
+        <entry key="angular" value="1000"/>
+        <entry key="python" value="400"/>
+        <entry key="spring" value="5000"/>
+    </util:map>
+
+    <!-- Standalone Collections Set -->
+         <util:set set-class="java.util.HashSet" id="city">
+             <value>Pune</value>
+             <value>Tuljapur</value>
+             <value>Kolhapur</value>
+             <value>Satara</value>
+         </util:set>
+
+    <!-- primetive data types setter injection bean -->
+    <bean class="com.example.FileHandling.SpringDemo.Student" name="student1" p:studentId="1234" p:studentName="ram" p:studentAddress="xyz"/>
+<!--        <property name="studentId" value="123"/>-->
+<!--            <value>123</value>-->
+<!--        </property>-->
+
+<!--        <property name="studentName" value="test" />-->
+<!--            <value>test</value>-->
+<!--        </property>-->
+
+<!--        <property name="studentAddress" value="abc" />-->
+<!--            <value>abc</value>-->
+<!--        </property>-->
+
+<!--    </bean>-->
+
+    <!-- collection bean -->
+    <bean class="com.example.FileHandling.SpringCollection.Emp" name="studentCollection">
+        <property name="name" value="test"/>
+
+        <!-- collection list bean -->
+        <property name="phones">
+            <list>
+                <value>123</value>
+                <value>1234</value>
+                <value>12345</value>
+                <value>123456</value>
+                <null/>
+            </list>
+        </property>
+
+        <!-- collection set bean -->
+        <property name="addresses">
+            <set>
+                <value>abc</value>
+                <value>def</value>
+                <value>ghi</value>
+                <value>jkl</value>
+            </set>
+        </property>
+
+        <!-- collection map bean -->
+        <property name="courses">
+            <map>
+                <entry key="java" value="1month"/>
+                <entry key="angular" value="2month"/>
+                <entry key="cpp" value="3month"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- bean for setter injection with ref -->
+    <bean class="com.example.FileHandling.SpringRef.B" name="brief">
+        <property name="y" value="11"/>
+    </bean>
+
+    <bean class="com.example.FileHandling.SpringRef.A" name="aref">
+        <property name="x" value="22"/>
+        <property name="ob">
+            <ref bean="brief"/>
+        </property>
+    </bean>
+
+    <!-- Constructor injection -->
+    <bean class="com.example.FileHandling.ConstructorInjection.Ct" name="ctf">
+        <constructor-arg value="testtttt"/>
+    </bean>
+
+    <!-- bean for constructor injection with ref -->
+    <bean class="com.example.FileHandling.ConstructorInjection.Pesrson" name="person">
+        <constructor-arg>
+            <value>test</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>2</value>
+        </constructor-arg>
+        <constructor-arg ref="ctf" />
+    </bean>
+
+    <!-- bean for constructor injection -->
+    <bean class="com.example.FileHandling.ConstructorInjection.Addition" name="add">
+        <constructor-arg value="12" type="int" index="1"/>
+        <constructor-arg value="13" type="int" index="0"/>
+    </bean>
+
+    <!-- Spring method Lifecyle> -->
+    <bean class="com.example.FileHandling.MethodLifecycle.Test" name="m1" init-method="init" destroy-method="destroy">
+        <property name="price" value="10"/>
+    </bean>
+
+    <!-- Spring method Lifecyle using Interface> -->
+    <bean class="com.example.FileHandling.MethodLifecycle.ByUsingInterface" name="m2">
+        <property name="price" value="25"/>
+    </bean>
+
+    <!-- Spring method Lifecyle using Annotation> -->
+    <bean class="com.example.FileHandling.MethodLifecycle.ByUsingAnnotation" name="m3">
+        <property name="name" value="byUsingAnnotation"/>
+    </bean>
+
+
+    <!-- beans for autowiring -->
+    <bean class="com.example.FileHandling.AutowiringByName.Address" name="address">
+        <property name="road" value="abc"/>
+        <property name="city" value="Pune" />
+    </bean>
+    <!-- beans for autowiring byName -->
+<!-- <bean class="com.example.FileHandling.AutowiringByName.Emp" name="emp" autowire="byName" />-->
+    <!-- beans for autowiring byType -->
+<!--    <bean class="com.example.FileHandling.AutowiringByName.Emp" name="emp" autowire="byType" />-->
+    <!-- beans for autowiring by constructor -->
+    <bean class="com.example.FileHandling.AutowiringByName.Emp" name="emp" autowire="constructor" />
+
+
+    <!-- beans for autowiring by annotation-->
+    <bean class="com.example.FileHandling.AutowiringByAnnotation.Company" name="company">
+        <property name="name" value="Sapours"/>
+        <property name="id" value="10" />
+    </bean>
+
+    <bean class="com.example.FileHandling.AutowiringByAnnotation.Employee" name="employee"/>
+
+
+    <!-- Standalone Collections -->
+    <!-- Standalone Collections List -->
+    <bean class="com.example.FileHandling.StandaloneCollections.Friends" name="friendsname">
+        <property name="friendNames" ref="myfriendlist"/>
+<!--        <property name="fessData" ref="fees" />-->
+<!--        <property name="cityName" ref="city"/>-->
+    </bean>
+
+    <!-- Standalone Collections Map-->
+    <bean class="com.example.FileHandling.StandaloneCollections.Friends" name="feesDetails">
+        <property name="fessData" ref="fees" />
+    </bean>
+
+    <!-- Standalone Collections Map-->
+    <bean class="com.example.FileHandling.StandaloneCollections.Friends" name="cities">
+        <property name="cityName" ref="city"/>
+    </bean>
+
+    <!-- Stereotype Annotations @Component Annotation | @Value Annotation -->
+    <context:component-scan base-package="com.example.FileHandling.StereotypeAnnotations"/>
+
+     <!-- Collections with @Value -->
+    <util:list list-class="java.util.ArrayList" id="temp">
+        <value>Java</value>
+        <value>Angular</value>
+        <value>Python</value>
+    </util:list>
+
+    <!-- Bean Scope -->
+     <context:component-scan base-package="com.example.FileHandling.BeanScope"/>
+     <bean class="com.example.FileHandling.BeanScope.Teacher" name="teacher" scope="prototype"/>
+
+    <!-- Spring Expression Language | SpEL -->
+    <context:component-scan base-package="com.example.FileHandling.SpEL"/>
+
+
+    <!-- Define DataSource bean -->
+    <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="ds">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/springjdbc"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <!-- Define JdbcTemplate bean -->
+    <bean class="org.springframework.jdbc.core.JdbcTemplate" name="temp">
+        <property name="dataSource" ref="ds"/>
+    </bean>
+
+</beans>
